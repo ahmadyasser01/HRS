@@ -16,6 +16,13 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:["true","Password is required"]
+    },
+    bloodGroup:{
+        type:String,
+        enum :["A-","A+","B+","B-","AB+","AB-","O+","O-"]
+    },
+    phone:{
+        type:String,
     }
 });
 
