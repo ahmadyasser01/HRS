@@ -1,4 +1,6 @@
 import express from "express";
+import { forgotPassword, login, logout, protect, resetPassword, signup } from "../controllers/auth.js";
+import { deleteMe, getMe, updateMe } from "../controllers/user.js";
 
 
 

@@ -1,23 +1,27 @@
 import express from "express";
+import { forgotPassword, getAllAdmins, login, logout, protect, resetPassword, signup } from "../controllers/admin.js";
 
 
 
 // router obj
 const router = express.Router();
 
-
+router.post('/signup',signup)
 router.post('/login',login)
 router.post('/logout',logout)
 
+/**
+ * TODO: IMPLEMENT GET ADMIN DATA AND UPDATE IT
+ */
 
-router.route('/me')
-    .get(protect,admin,getMe)
-    .patch(protect,admin,updateMe)
-    .delete(protect,admin,deleteMe)
+// router.route('/me')
+//     .get(protect,getMe)
+//     .patch(protect,updateMe)
+//     .delete(protect,deleteMe)
 
 router.route('/')
-    .get(admin,getAllAdmins)
-    .post(createAdmin)
+    .get(protect,getAllAdmins)
+    // .post(createAdmin)
 
 
 
