@@ -1,5 +1,7 @@
 import express from "express";
+import { createSpecialitiy, deleteSpecialitiy, getSpecialities, getSpecialitiy, updateSpecialitiy } from "../controllers/specalities";
 
+import {  protect  } from "../controllers/admin.js";
 
 
 // router obj
