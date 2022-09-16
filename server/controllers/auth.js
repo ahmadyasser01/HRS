@@ -92,7 +92,6 @@ export const logout = async(req, res, next) => {
         expires: new Date(Date.now()),
         httpOnly: true
       });
-      console.log(res.cookie())
       
       res.status(200).json({
          status: 'success',
@@ -106,7 +105,7 @@ export const protect = async (req, res,next) => {
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
             token = req.headers.authorization.split(' ')[1];
         } 
-        else if(req.cookies.jwt){
+        else if(req.cookies?.jwt!=null){
             token = req.cookies.jwt;
         }
         // Check if token is Not found

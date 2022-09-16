@@ -4,7 +4,8 @@ import cors from "cors";
 import connectDB from "./db/connect.js"
 import userRouter from "./routes/user.js"
 import adminRouter from "./routes/admin.js"
-
+import appointmentRouter from "./routes/appointments.js"
+import specialityRouter from "./routes/specialities.js"
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -25,6 +26,10 @@ app.use(express.json());
 
 //ROUTES
 app.use('/api/users',userRouter);
+app.use('/api/admins',adminRouter);
+app.use('/api/appointments',appointmentRouter);
+app.use('/api/specialities',specialityRouter);
+
 
 
 

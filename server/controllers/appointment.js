@@ -3,16 +3,23 @@ import Appointment from '../models/appointment.js'
 export const getAllAppointments = async (req,res,next)=>{
     try {
         let appointments;
-        if(req.query){
+        console.log(req.query);
+        if(req.query?.st){
             const startDate = new Date(req.query.st)
-            const endDate =   new Date(req.query.st)
-            console.log(startDate,endDate);
+            const endDate =   new Date(req.query.end)
+            console.log(startDate," st","and",endDate," is end");
             appointments = await Appointment.find({
                 date:{
-                    $gte:startDate,
-                    $lte:endDate
+                    $gte:startDate.toLocaleString(),
+                    $lte:endDate.toLocaleString()
                 }
-            })
+            }).populate({
+                path: 'user',
+                select: 'firstName',
+              }).populate({
+                path: 'speciality',
+                select: 'name'
+              });   
         }
         else
 {         appointments = await Appointment.find();
@@ -37,12 +44,14 @@ export const bookAppointment = async (req,res,next) => {
         try {
             const {
                 speciality,
-                user
+                user,
+                date
             } = req.body;
-
+            console.log(req.body);
             const newAppointment = await Appointment.create({
                 user,
-                speciality
+                speciality,
+                date
             });
             res.status(200).json(
                 {
@@ -61,8 +70,16 @@ export const bookAppointment = async (req,res,next) => {
 
 export const getAppointment = async(req, res, next) => {
     try {
-        const { id } = req.params.id
-        const appointment = await Appointment.findById(id);
+        const { id } = req.params
+        const appointment = await Appointment.findById(id).populate({
+            path: 'user',
+            select: 'firstName',
+          }).populate({
+            path: 'speciality',
+            select: 'name'
+          });
+          if(appointment ===null)
+          throw new Error('Could not find appointment');
 
         res.status(200).json({
             status:"Success",
@@ -81,7 +98,7 @@ export const getAppointment = async(req, res, next) => {
 export const updateAppointment = async(req, res, next) => {
     try {
         const updates = Object.keys(req.body);
-        const allowedUpdates = ['date']
+        const allowedUpdates = ['date',"cancelled"]
         const validOperations = updates.filter((update)=>allowedUpdates.includes(update))
         if(validOperations.length ==0)
         {
@@ -91,7 +108,7 @@ export const updateAppointment = async(req, res, next) => {
         /**
          * CHECK THIS IMPLEMENTATION AND OPTMIZIE THE CODE 
          */
-        const { id } = req.params.id;
+        const { id } = req.params;
         // check if not reserved or not cancelled
         const appointment = await Appointment.findById(id);
         // FOR EACH VALID UPDATE  DO THE UPDATE
@@ -115,7 +132,7 @@ export const updateAppointment = async(req, res, next) => {
 
 export const deleteAppointment = async(req, res, next) => {
     try {
-        const { id } = req.params.id
+        const { id } = req.params
         const appointment = await Appointment.findByIdAndDelete(id);
 
         res.status(200).json({
@@ -129,4 +146,12 @@ export const deleteAppointment = async(req, res, next) => {
             error:error.message
         })    
     }
+}
+
+export const cancelAppointment = async(req, res, next) => {
+    req.body = {
+        cancelled:true
+     }
+     console.log(req.body);
+     next();
 }

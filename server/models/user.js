@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema({
     firstName:{
         type:String,
@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:["true","Password is required"]
+        required:["true","Password is required"],
+        select:false
     },
     bloodGroup:{
         type:String,

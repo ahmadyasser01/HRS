@@ -104,7 +104,7 @@ export const protect = async (req, res,next) => {
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
             token = req.headers.authorization.split(' ')[1];
         } 
-        else if(req.cookies.jwt){
+        else if(req.cookies?.jwt){
             token = req.cookies.jwt;
         }
         // Check if token is Not found
@@ -120,7 +120,7 @@ export const protect = async (req, res,next) => {
         // IF NO USER FOUND THROW ERROR
         if(!currentAdmin)
         {
-            throw new Error("No such admin");
+            throw new Error("You do not have permission to access this endpoint.");
         }
         /**
          * IF admin CHANGED PASSWORD AFTER ISSUING JWT TOKEN

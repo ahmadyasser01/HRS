@@ -48,7 +48,7 @@ export const createSpecialitiy = async (req,res,next) => {
 
 export const getSpecialitiy = async(req, res, next) => {
     try {
-        const { id } = req.params.id
+        const { id } = req.params
         const speciality = await Specialitiy.findById(id);
 
         res.status(200).json({
@@ -78,7 +78,7 @@ export const updateSpecialitiy = async(req, res, next) => {
         /**
          * CHECK THIS IMPLEMENTATION AND OPTMIZIE THE CODE 
          */
-        const { id } = req.params.id;
+        const { id } = req.params;
         const speciality = await Specialitiy.findById(id);
         // FOR EACH VALID UPDATE  DO THE UPDATE
         validOperations.forEach(update => speciality[update] = req.body[update])
@@ -101,7 +101,7 @@ export const updateSpecialitiy = async(req, res, next) => {
 
 export const deleteSpecialitiy = async(req, res, next) => {
     try {
-        const { id } = req.params.id
+        const { id } = req.params
         const speciality = await Specialitiy.findByIdAndDelete(id);
 
         res.status(200).json({
