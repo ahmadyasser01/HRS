@@ -1,5 +1,16 @@
 import Appointment from '../models/appointment.js'
-
+export const getTodayAppointments = async(req, res, next) => {
+    const today = new Date()
+    const start = new Date(today);
+    start.setHours(12);
+    const end = new Date(today);
+    end.setHours(21);
+    req.query ={
+        st:start,
+        end
+    }
+    next();
+}
 export const getAllAppointments = async (req,res,next)=>{
     try {
         let appointments;
@@ -15,15 +26,29 @@ export const getAllAppointments = async (req,res,next)=>{
                 }
             }).populate({
                 path: 'user',
-                select: 'firstName',
+                select: 'firstName -_id',
+                options: {strictPopulate: false}
               }).populate({
                 path: 'speciality',
-                select: 'name'
-              });   
+                select: 'name -_id',
+                options: {strictPopulate: false}
+
+              }); 
         }
         else
-{         appointments = await Appointment.find();
-}
+{         appointments = await Appointment.find().populate({
+            path: 'user',
+            select: 'firstName -_id',
+        }).populate({
+            path: 'speciality',
+            select: 'name -_id',
+
+        }); 
+    }
+    appointments = appointments.map((a)=>{
+        return {_id:a._id,speciality:a.speciality.name,user:a.user.firstName,date:a.date,__v:a.__v,cancelled:a.cancelled?"true":"false"}
+       
+    })
         if(appointments.length ===0)
             throw new Error('No appointments found.');
         res.status(200).json({

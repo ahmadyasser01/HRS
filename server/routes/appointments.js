@@ -1,5 +1,5 @@
 import express from "express";
-import { bookAppointment, cancelAppointment, deleteAppointment, getAllAppointments, getAppointment, updateAppointment } from "../controllers/appointment.js";
+import { bookAppointment, cancelAppointment, deleteAppointment, getAllAppointments, getAppointment, getTodayAppointments, updateAppointment } from "../controllers/appointment.js";
 import { protect } from "../controllers/auth.js";
 
 
@@ -7,10 +7,11 @@ import { protect } from "../controllers/auth.js";
 // router obj
 const router = express.Router();
 
+router.route("/today").get(getTodayAppointments,getAllAppointments)
 
 router.route('/')
-    .get(protect,getAllAppointments)
-    .post(protect,bookAppointment)
+    .get(getAllAppointments)
+    .post(bookAppointment)
 
 router.route("/:id")
     .get(protect,getAppointment)  
@@ -19,5 +20,4 @@ router.route("/:id")
 
 // ALIAS ROUTE TO CANCEL APPOINTMENT DIRECTLY   
 router.route("/:id/cancel").patch(cancelAppointment,updateAppointment)
-
 export default router;

@@ -9,11 +9,11 @@ const router = express.Router();
 
 
 router.route('/')
-    .get(protect,getSpecialities)
+    .get(getSpecialities)
     .post(protect,createSpecialitiy)
 
 router.route("/:id")
-    .get(protect,getSpecialitiy)  
+    .get(getSpecialitiy)  
     .patch(protect,updateSpecialitiy)  
     .delete(protect,deleteSpecialitiy)
 
