@@ -1,21 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './calender.css'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import TextField from '@mui/material/TextField';
-import moment from "moment"
 import Button from "@mui/material/Button"
 
-const CalenderComponent = () => {
-    const [value, setValue] = React.useState(moment());
+const CalenderComponent = ({date,setDate}) => {
+  useEffect(()=>{
+    console.log(date);
+  },[date])
     return (
-    <div className='right'>
       <LocalizationProvider dateAdapter={AdapterMoment} >
       <DateTimePicker sx={{mt:"5px"}}
         label="Selected Date And Time"
-        value={value}
-        ampm ={false}
+        value={date}
+        ampm ={true}
         shouldDisableTime={(timeValue, clockType) => {
             if (clockType === 'hours' && (timeValue<=12 || timeValue>21)) {
               return true;
@@ -28,15 +28,12 @@ const CalenderComponent = () => {
           }}
         disablePast
         onChange={(newValue) => {
-          setValue(newValue);
+          setDate(newValue);
         }}
         renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>
-    <Button variant="outlined" sx={{color:"red" ,borderColor:"red"}}>
-          Book
-          </Button>
-    </div>
+   
   )
 }
 

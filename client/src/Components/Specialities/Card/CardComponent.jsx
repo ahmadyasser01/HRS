@@ -8,12 +8,11 @@ import HealingIcon from '@mui/icons-material/Healing';
 import './card.css'
 import { useNavigate } from "react-router-dom";
 
-const CardComponent = () => {
+const CardComponent = ({name,details,id}) => {
   const navigate = useNavigate();
 
   return (
-    // `/book?st=`
-    <Card sx={{ maxWidth: 345 }} onClick={()=>{navigate(`/book?st=xx`)}}>
+    <Card sx={{ maxWidth: 345 }} onClick={()=>{navigate(`/book?sp=${id}`)}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -24,10 +23,10 @@ const CardComponent = () => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-          Radiology
+          {name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            ssss
+            {details}
           </Typography>
         </CardContent>
       </CardActionArea>
