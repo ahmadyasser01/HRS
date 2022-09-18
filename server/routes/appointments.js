@@ -14,9 +14,9 @@ router.route('/')
     .post(bookAppointment)
 
 router.route("/:id")
-    .get(protect,getAppointment)  
-    .patch(protect,updateAppointment)  
-    .delete(protect,deleteAppointment)
+    .get(getAppointment)  
+    .patch(updateAppointment)  
+    .delete(deleteAppointment)
 
 // ALIAS ROUTE TO CANCEL APPOINTMENT DIRECTLY   
 router.route("/:id/cancel").patch(cancelAppointment,updateAppointment)

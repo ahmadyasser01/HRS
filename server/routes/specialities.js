@@ -14,7 +14,7 @@ router.route('/')
 
 router.route("/:id")
     .get(getSpecialitiy)  
-    .patch(protect,updateSpecialitiy)  
-    .delete(protect,deleteSpecialitiy)
+    .patch(updateSpecialitiy)  
+    .delete(deleteSpecialitiy)
 
 export default router;

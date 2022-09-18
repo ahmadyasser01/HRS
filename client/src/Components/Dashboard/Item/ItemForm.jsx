@@ -2,19 +2,24 @@ import React from 'react'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material';
 import './item.css'
-const ItemForm = ({fieldds}) => {
-    const fields =['name',"details"];
+import CalenderComponent from '../../Book/CalenderComponent/CalenderComponent';
+const ItemForm = ({fields,update}) => {
+    // const fields =['name',"details"];
   return (
     <div className='item-parent'>
-      {fields.map((field) =>(
-        <TextField 
+      {fields.map((field) =>{
+        if(field=== 'cancel') return (<Button variant='outlined'>Cancel</Button>)
+        else if(field ==='date') return (<CalenderComponent/>)
+        else return( <TextField 
         autoComplete="off"
         id={field}
         label={field}
         variant="outlined"
-       />
-      ))}
-      <Button variant='contained'>Add</Button>
+       />)
+      }
+        
+      )}
+      <Button variant='contained'>{update?"update":"Add"}</Button>
     </div>
   )
 }

@@ -8,21 +8,25 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
-function createData(doc) {
-  return {...doc, updateButton:()=>(<Button>Update</Button>) , deleteButton:()=>(<Button>Delete</Button>)};
-}
-function cleanData(data){
-     data.forEach(function(item){
-        delete item._id;
-        delete item.__v;
-    })
-    return data;
-}
 
-const TableComponent = ({headers,data}) => {
+
+const TableComponent = ({headers,data, HandleUpdate,HandleDelete,update,setUpdate}) => {
+  function createData(doc,idx) {
+    return {...doc, updateButton:()=>(<Button index={idx} onClick={()=>{setUpdate(true)}}>Update</Button>) , deleteButton:()=>(<Button  id={doc['_id']} onClick={()=>HandleDelete(idx)}>Delete</Button>)};
+  }
+  function cleanData(data){
+       data.forEach(function(item){
+          // delete item._id;
+          delete item.__v;
+      })
+      return data;
+  }
+
+
+
   let clean = structuredClone(data);
     clean = cleanData(clean);
-  const rows = clean.map(e => (createData(e)))
+  const rows = clean.map((e,idx) => (createData(e,e['_id'])))
   
   console.log(data);
   return (
@@ -41,11 +45,11 @@ const TableComponent = ({headers,data}) => {
             key={row.name}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
-          {Object.keys(row).map(item=>{	
+          {Object.keys(row).map((item,index)=>{	
             if(typeof(row[item])==='function')
-            return (<TableCell align="center">{(row[item])()}</TableCell>)
-            else 
-            return  (<TableCell align="center">{row[item]}</TableCell>)
+            return (<TableCell key={index}align="center">{(row[item])()}</TableCell>)
+            else if(item!=='_id')
+            return  (<TableCell key={index } align="center">{row[item]}</TableCell>)
 
           })}
           
