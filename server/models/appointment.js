@@ -23,15 +23,17 @@ const appointmentSchema = new mongoose.Schema({
 });
 // HASH PASSWORD BEFOR SAVE
 appointmentSchema.pre('save',async function (next){
-    // if(!this.isModified('date')) return next();
-    // const  timeString = new Date(this.date).toLocaleString("en-US", {timeZone: 'Africa/Cairo'});
-    // console.log(timeString);
-    // const savedDate = new Date(Date.parse(timeString)).toISOString()
-    // console.log(savedDate);
-    // if(< 12 && this.date >=21) throw new Error("Invalid time range")
-    console.log(this.date);
-    const dateFormat = new Date(Date.parse(this.date));
-    console.log(dateFormat.toISOString());
+    // // if(!this.isModified('date')) return next();
+    // // const  timeString = new Date(this.date).toLocaleString("en-US", {timeZone: 'Africa/Cairo'});
+    // // console.log(timeString);
+    // // const savedDate = new Date(Date.parse(timeString)).toISOString()
+    // // console.log(savedDate);
+    // // if(< 12 && this.date >=21) throw new Error("Invalid time range")
+    // console.log(this.date);
+    // const dateFormat = new Date(Date.parse(this.date));
+    // console.log(dateFormat.toISOString());
+    // if(!this.isModified('date')) next();
+    // this.date = this.date.toLocaleString("en-US", {timeZone: 'Africa/Cairo'});
 
     next();
 });

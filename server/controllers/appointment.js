@@ -2,9 +2,9 @@ import Appointment from '../models/appointment.js'
 export const getTodayAppointments = async(req, res, next) => {
     const today = new Date()
     const start = new Date(today);
-    start.setHours(12);
+    start.setHours(12,0,0);
     const end = new Date(today);
-    end.setHours(21);
+    end.setHours(21,0,0);
     req.query ={
         st:start,
         end
@@ -72,7 +72,7 @@ export const bookAppointment = async (req,res,next) => {
                 user,
                 date
             } = req.body;
-            console.log(req.body);
+            console.log(req.body.date);
             const newAppointment = await Appointment.create({
                 user,
                 speciality,

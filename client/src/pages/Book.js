@@ -14,16 +14,18 @@ const Book = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleBook = async()=>{
-    const dateTime = date.toLocaleString('en-US', {
+    let dateTime = new Date(date);
+    dateTime = dateTime.toLocaleString('en-US', {
       timeZone: 'Africa/Cairo',
     })
-    console.log(dateTime);
+    console.log(dateTime,"this is date time");
     axios.post('http://localhost:5000/api/appointments',{
      user:"6323b54871a78f93e7e760dc",
     speciality:searchParams.get('sp'),
-    date
+    date:dateTime
     }).then(res=>{
-      window.location.href = "/"
+      console.log(res.data);
+     // window.location.href = "/"
     }).catch((e)=>console.error(e));
   }
 
