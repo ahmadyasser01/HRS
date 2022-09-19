@@ -6,7 +6,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 
-const CalenderComponent = ({date,setDate}) => {
+const CalenderComponent = ({date,setDate,past}) => {
   useEffect(()=>{
     console.log(date);
   },[date])
@@ -26,7 +26,7 @@ const CalenderComponent = ({date,setDate}) => {
 
             return false;
           }}
-        disablePast
+        disablePast={past}
         onChange={(newValue) => {
           setDate(newValue);
         }}

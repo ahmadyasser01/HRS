@@ -1,5 +1,5 @@
 import express from "express";
-import { bookAppointment, cancelAppointment, deleteAppointment, getAllAppointments, getAppointment, getTodayAppointments, updateAppointment } from "../controllers/appointment.js";
+import { bookAppointment, cancelAppointment, deleteAppointment, getAllAppointments, getAppointment, getPastAppointments, getTodayAppointments, getUpcomingAppointments, updateAppointment } from "../controllers/appointment.js";
 import { protect } from "../controllers/auth.js";
 
 
@@ -8,6 +8,10 @@ import { protect } from "../controllers/auth.js";
 const router = express.Router();
 
 router.route("/today").get(getTodayAppointments,getAllAppointments)
+router.route("/past").get(getPastAppointments,getAllAppointments)
+router.route("/upcoming").get(getUpcomingAppointments,getAllAppointments)
+
+
 
 router.route('/')
     .get(getAllAppointments)

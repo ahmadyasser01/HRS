@@ -8,16 +8,14 @@ import moment from "moment"
 import { Button } from '@mui/material';
 import axios from 'axios';
 import {useSearchParams} from 'react-router-dom'
+import { convertTime } from '../utils/convertTime';
 
 const Book = () => {
   const [date, setDate] = React.useState(moment());
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleBook = async()=>{
-    let dateTime = new Date(date);
-    dateTime = dateTime.toLocaleString('en-US', {
-      timeZone: 'Africa/Cairo',
-    })
+    const dateTime = convertTime(date);
     console.log(dateTime,"this is date time");
     axios.post('http://localhost:5000/api/appointments',{
      user:"6323b54871a78f93e7e760dc",
@@ -37,7 +35,7 @@ const Book = () => {
           <div className='parent' style={{display:'flex',flexDirection:"row"}}>
             <EventDetails/>
             <div className='right'>
-            <CalenderComponent date={date} setDate={setDate}/>
+            <CalenderComponent past={true } date={date} setDate={setDate}/>
             <Button variant="outlined" sx={{color:"red" ,borderColor:"red"}} onClick={handleBook}>
               Book
           </Button>

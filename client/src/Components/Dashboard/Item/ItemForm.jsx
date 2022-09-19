@@ -3,13 +3,15 @@ import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material';
 import './item.css'
 import CalenderComponent from '../../Book/CalenderComponent/CalenderComponent';
-const ItemForm = ({fields,update}) => {
+import moment from 'moment';
+const ItemForm = ({fields,update, date, setDate,HandleUpdate}) => {
+
     // const fields =['name',"details"];
   return (
     <div className='item-parent'>
       {fields.map((field) =>{
         if(field=== 'cancel') return (<Button variant='outlined'>Cancel</Button>)
-        else if(field ==='date') return (<CalenderComponent/>)
+        else if(field ==='date') return (<CalenderComponent date={date} setDate={setDate}/>)
         else return( <TextField 
         autoComplete="off"
         id={field}
@@ -19,7 +21,7 @@ const ItemForm = ({fields,update}) => {
       }
         
       )}
-      <Button variant='contained'>{update?"update":"Add"}</Button>
+      <Button variant='contained' onClick={HandleUpdate}>{update?"update":"Add"}</Button>
     </div>
   )
 }

@@ -11,19 +11,44 @@ export const getTodayAppointments = async(req, res, next) => {
     }
     next();
 }
+export const getPastAppointments = async(req, res, next) => {
+    const today = new Date()
+    const end = new Date(today);
+    console.log(end,"ss");
+    end.setHours(12,0,0);
+    req.query ={
+        end
+    }
+    next();
+}
+export const getUpcomingAppointments = async(req, res, next) => {
+    const st = new Date()
+    req.query ={
+        st
+    }
+    next();
+}
 export const getAllAppointments = async (req,res,next)=>{
     try {
         let appointments;
         console.log(req.query);
-        if(req.query?.st){
-            const startDate = new Date(req.query.st)
-            const endDate =   new Date(req.query.end)
-            console.log(startDate," st","and",endDate," is end");
+        let  startDate;
+        let endDate;
+        let query={};
+        if(req.query?.st|| req.query?.end){
+            if(req.query?.st) {
+                startDate = new Date(req.query.st)
+                query['$gte'] =startDate.toLocaleString()
+
+            }
+            if(req.query?.end) {
+                endDate =   new Date(req.query.end)
+                query['$lte'] =endDate.toLocaleString();
+            
+            }
+            console.log(query);
             appointments = await Appointment.find({
-                date:{
-                    $gte:startDate.toLocaleString(),
-                    $lte:endDate.toLocaleString()
-                }
+                date:query
             }).populate({
                 path: 'user',
                 select: 'firstName -_id',
