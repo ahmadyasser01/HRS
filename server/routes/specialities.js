@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.route('/')
     .get(getSpecialities)
-    .post(protect,createSpecialitiy)
+    .post(createSpecialitiy)
 
 router.route("/:id")
     .get(getSpecialitiy)  
