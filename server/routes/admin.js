@@ -6,7 +6,7 @@ import {  getAllAdmins, login, logout, protect,  signup } from "../controllers/a
 // router obj
 const router = express.Router();
 
-// router.post('/signup',signup)
+router.post('/signup',signup)
 router.post('/login',login)
 router.post('/logout',logout)
 
@@ -16,7 +16,7 @@ router.route('/')
     /**
      * TODO: implement createAdmin controller
      */
-    .post(signup)
+    // .post(signup)
   
 
 export default router;
