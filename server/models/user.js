@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
     },
     phone:{
         type:String,
+    },
+    age:{
+        type:Number,
     }
 });
 // HASH PASSWORD BEFOR SAVE
