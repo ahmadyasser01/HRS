@@ -37,4 +37,6 @@ $ npm i
 ```sh
 $ npm start
 ```
+# MAKE SURE YOU HAVE .env FILE IN THE SERVER DIR
+
 
