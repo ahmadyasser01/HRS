@@ -16,7 +16,11 @@ import { Alert } from '@mui/material';
 const Specialities = () => {
   const [error,setError] = useState(null);
   const[update,setUpdate] = useState();
-
+  const [name,setName] = useState();
+  const [details,setDetails] = useState();
+  const handleAdd = ()=>{
+    console.log("added");
+  }
   const handleUpdate = ()=>{
     console.log("update is done");
   }
@@ -71,6 +75,10 @@ const Specialities = () => {
         fields={['name','details']}
         update={update}
         setUpdate={setUpdate}
+        name={name}
+        setName={setName}
+        details={details}
+        setDetails={setDetails}
         />
 
 

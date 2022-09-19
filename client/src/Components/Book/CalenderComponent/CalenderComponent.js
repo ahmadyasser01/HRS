@@ -17,7 +17,7 @@ const CalenderComponent = ({date,setDate,past}) => {
         value={date}
         ampm ={true}
         shouldDisableTime={(timeValue, clockType) => {
-            if (clockType === 'hours' && (timeValue<=12 || timeValue>21)) {
+            if (clockType === 'hours' && (timeValue<12 || timeValue>21)) {
               return true;
             }
             if (clockType === 'minutes' && timeValue%30) {

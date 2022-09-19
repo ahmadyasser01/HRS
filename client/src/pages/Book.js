@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container'
@@ -13,10 +13,14 @@ import { convertTime } from '../utils/convertTime';
 const Book = () => {
   const [date, setDate] = React.useState(moment());
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [speciality, setSpeciality] = useState("");
+  useEffect(() =>{
+    axios.get(`http://localhost:5000/api/specialities/${searchParams.get('sp')}`).then(res=>setSpeciality(res.data.speciality))
+  },[])
   const handleBook = async()=>{
     const dateTime = convertTime(date);
     console.log(dateTime,"this is date time");
+   
     axios.post('http://localhost:5000/api/appointments',{
      user:"6323b54871a78f93e7e760dc",
     speciality:searchParams.get('sp'),
@@ -33,7 +37,7 @@ const Book = () => {
       <Container maxWidth="md">
         <Box sx={{  height: '100vh', paddingTop:1 }} >
           <div className='parent' style={{display:'flex',flexDirection:"row"}}>
-            <EventDetails/>
+            <EventDetails speciality={speciality.name}/>
             <div className='right'>
             <CalenderComponent past={true } date={date} setDate={setDate}/>
             <Button variant="outlined" sx={{color:"red" ,borderColor:"red"}} onClick={handleBook}>

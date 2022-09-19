@@ -9,7 +9,7 @@ const ItemForm = ({fields,update, date, setDate,HandleUpdate}) => {
     // const fields =['name',"details"];
   return (
     <div className='item-parent'>
-      {fields.map((field) =>{
+      {fields.map((field,index) =>{
         if(field=== 'cancel') return (<Button variant='outlined'>Cancel</Button>)
         else if(field ==='date') return (<CalenderComponent date={date} setDate={setDate}/>)
         else return( <TextField 
