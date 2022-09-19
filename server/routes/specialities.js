@@ -4,6 +4,11 @@ import { createSpecialitiy, deleteSpecialitiy, getSpecialities, getSpecialitiy, 
 import {  protect  } from "../controllers/admin.js";
 
 
+/**
+ *  PLEASE NOTE I TURNED OF AUTHORIZATION TO MAKE UI FEATURES WORK AS IT IS NOT IMPLENTED YET
+ *  TO ADD AUTHORIZATION  PUT PROTECT FUNCTION BACK IN EACH PROTECTED ROUTE
+ */
+
 // router obj
 const router = express.Router();
 
