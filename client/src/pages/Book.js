@@ -5,7 +5,7 @@ import Container from '@mui/material/Container'
 import EventDetails from '../Components/Book/Event-Details/EventDetails';
 import CalenderComponent from '../Components/Book/CalenderComponent/CalenderComponent';
 import moment from "moment"
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import axios from 'axios';
 import {useSearchParams} from 'react-router-dom'
 import { convertTime } from '../utils/convertTime';
@@ -14,6 +14,7 @@ const Book = () => {
   const [date, setDate] = React.useState(moment());
   const [searchParams, setSearchParams] = useSearchParams();
   const [speciality, setSpeciality] = useState("");
+  const [msg,setMsg] = useState(false);
   useEffect(() =>{
     axios.get(`http://localhost:5000/api/specialities/${searchParams.get('sp')}`).then(res=>setSpeciality(res.data.speciality))
   },[])
@@ -26,8 +27,7 @@ const Book = () => {
     speciality:searchParams.get('sp'),
     date:dateTime
     }).then(res=>{
-      console.log(res.data);
-     // window.location.href = "/"
+      setMsg(res.data.newAppointment.date);
     }).catch((e)=>console.error(e));
   }
 
@@ -43,6 +43,8 @@ const Book = () => {
             <Button variant="outlined" sx={{color:"red" ,borderColor:"red"}} onClick={handleBook}>
               Book
           </Button>
+          {msg && <Alert severity="success">You successfully booked an appointment at {msg}</Alert>}
+
             </div>
           </div>
 
